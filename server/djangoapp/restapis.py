@@ -1,14 +1,15 @@
 import requests
 import os
+import urllib.parse
 from dotenv import load_dotenv
 
 load_dotenv()
 
 backend_url = os.getenv(
-    'backend_url', default="http://localhost:3030")
+    'backend_url', default="http://localhost:3030").rstrip('/')
 sentiment_analyzer_url = os.getenv(
     'sentiment_analyzer_url',
-    default="http://localhost:5050/")
+    default="http://localhost:5050").rstrip('/')
 
 
 def get_request(endpoint, **kwargs):
@@ -30,7 +31,7 @@ def get_request(endpoint, **kwargs):
 
 
 def analyze_review_sentiments(text):
-    request_url = sentiment_analyzer_url + "analyze/" + text
+    request_url = sentiment_analyzer_url + "/analyze/" + urllib.parse.quote(text)
 
     try:
         response = requests.get(request_url)
