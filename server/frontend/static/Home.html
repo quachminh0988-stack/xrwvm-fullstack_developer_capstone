@@ -16,11 +16,10 @@ const logout = async (e) => {
     const json = await res.json();
 
     if (json) {
-        let username = sessionStorage.getItem('username');
+        const username = sessionStorage.getItem('username') || 'user';
         sessionStorage.removeItem('username');
-        alert("Loggin out " + username + "...")
+        alert("Logging out " + username + "...")
         window.location.href = window.location.origin;
-        window.location.reload();
     } else {
         alert("Ther user could not be logged out.")
     }
